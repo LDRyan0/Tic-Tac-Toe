@@ -13,53 +13,42 @@ void menu(int m, int n, int k) /*the menu starts with the settings loaded in*/
     int menu = 1; /*holds the menu selection from the user*/
     char* menuString; /*the string for the menu output, depends on mode*/
     Game* curGame; /*stores the current game in play*/
-
-    /*the linked list to store all of the logs of the games*/
-    LinkedList* log = createLinkedList();
     
     menuString = (char*)malloc(512*sizeof(char));
+    menuString = "\n1: Start new game\n2: View the settings of the game\n3: Edit settings\n4: Exit the application\n";
     
-    /*creates the string for the menu output based on what mode/s the program is in*/   
-    makeMenuString(menuString);
-
     /*welcome message*/
     printf("==================================================\n");
     printf("||WELCOME TO THE ULTIMATE TIC-TAC-TOE EXPERIENCE||\n");
     printf("==================================================\n");
  
-    while (menu != 6) /*while user hasn't selected exit*/
+    while (menu != 4) /*while user hasn't selected exit*/
     {
         /*input the user's menu selection with validation*/
         menu = inputInt(1, 6, menuString); 
         if (menu == 1)
         {
-            /*create a new game with the current settings*/
-            curGame = createGame(m, n, k);           
+			int menu2;
+			printf("1: Player 1 vs. Player 2\nPlayer 2 vs. Computer\n\n");
+			if (menu2 == 1) {
+            	/*create a P1 vs. P2 game with the current settings*/
+            	curGame = createGame(m, n, k, 0);
+	 		} else {
+				curGame	= createGame(m, n, k, 1);
+			}
 
             /*run the new game until completion (includes freeing of game struct)*/
-            runGame(curGame, log);
+            runGame(curGame);
         }
         else if (menu == 2)
         {
-            printf("Rows = %d\nColumns = %d\nWin = %d\n", m, n, k);
+            printf("\nSETTINGS:\n\tRows = %d\n\tColumns = %d\n\tWin = %d\n", m, n, k);
         }
         else if (menu == 3)
         {
-            viewLog(log, m, n, k); 
-        }
-        else if (menu == 4)
-        {
-            /*if we're not in secret mode then allow saving of logs*/ 
-            #ifndef SECRET   
-            saveLog(log, m, n, k);
-            #endif
-        }
-        else if (menu == 5)
-        {
             /*if we're in editor mode allow for values to be changed dynamically*/
-            #ifdef EDITOR
             int exit = FALSE;
-            printf("Enter the new settings in form <m> <n> <k> (Eg: 5 5 3)\n");
+            printf("Enter the new settings in form <rows> <cols> <win> (Eg: 5 5 3)\n");
             while (exit == FALSE)
             {
                 exit = FALSE;
@@ -67,7 +56,7 @@ void menu(int m, int n, int k) /*the menu starts with the settings loaded in*/
                 /*keep giving prompt until user inputs in correct format*/
                 while (scanf("%d %d %d", &m, &n, &k) != 3)
                 {
-                    printf("Invalid: Please enter settings in the form <m> <n> <k> (EG: 5 5 3)");
+                    printf("Invalid: Please enter settings in the form <rows> <cols> <win> (EG: 5 5 3)");
                 }
 
                 /*checking for a variety of conditions that would be invalid*/
@@ -84,30 +73,14 @@ void menu(int m, int n, int k) /*the menu starts with the settings loaded in*/
                     exit = TRUE;
                 }
             }
-            #endif
         }
     }
 
-    /*freeing*/
-    freeLinkedList(log, &freeData);
     free(menuString);
 
     /*exit message*/
     printf("\nThank you for using the TicTacToe program, goodbye\n"); 
 }
 
-/*  - exports the string for the menu prompt based off what mode/s program is in
- *  - I seperated this into its own method to reduce size of menu */
-void makeMenuString(char* menuString)
-{    
-    strcpy(menuString, "\n1: Start a new game\n2: View the settings of the game\n3: View the current logs\n");
-    #ifndef SECRET
-    strcat(menuString, "4: Save the logs to a file\n");
-    #endif
-    #ifdef EDITOR
-    strcat(menuString, "5: Edit settings\n");
-    #endif
-    strcat(menuString, "6: Exit the application\n\n");
-}
 
 

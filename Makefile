@@ -6,20 +6,8 @@
 
 CC = gcc
 CFLAGS = -ansi -pedantic -Wall -Werror -std=c89 -g
-OBJ =  TicTacToe.o UserInterface.o Settings.o GameManager.o Input.o UCPLinkedList.o Logging.o
+OBJ =  TicTacToe.o UserInterface.o Settings.o GameManager.o Input.o AI.o
 EXEC = TicTacToe
-
-#Add SECRET to the CFLAGS and recompile the program
-ifdef SECRET
-CFLAGS += -D SECRET
-EDITOR : clean $(EXEC)
-endif
-
-#Add EDITOR to the CFLAGS and recompile the program
-ifdef EDITOR
-CFLAGS += -D EDITOR
-EDITOR : clean $(EXEC)
-endif
 
 $(EXEC) : $(OBJ)
 	$(CC) $(OBJ) -o $(EXEC)
@@ -27,25 +15,20 @@ $(EXEC) : $(OBJ)
 TicTacToe.o : TicTacToe.h Settings.h UserInterface.h GameManager.h
 	$(CC) -c TicTacToe.c $(CFLAGS)
 
-
-
-UserInterface.o : UserInterface.h Settings.h GameManager.h Input.h Logging.h
+UserInterface.o : UserInterface.h Settings.h GameManager.h Input.h
 	$(CC) -c UserInterface.c $(CFLAGS)
 
 Settings.o : Settings.h
 	$(CC) -c Settings.c $(CFLAGS)
 
-GameManager.o : GameManager.h Input.h Logging.h
+AI.o : AI.h GameManager.h
+	$(CC) -c AI.c $(CFLAGS)
+
+GameManager.o : GameManager.h Input.h AI.h
 	$(CC) -c GameManager.c $(CFLAGS)
 
 Input.o : Input.h
 	$(CC) -c Input.c $(CFLAGS)
-
-Logging.o : Logging.h UCPLinkedList.h
-	$(CC) -c Logging.c $(CFLAGS)
-
-UCPLinkedList.o : UCPLinkedList.h
-	$(CC) -c UCPLinkedList.c $(CFLAGS)
 	
 clean :
 	rm -f $(OBJ) $(EXEC)

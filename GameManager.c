@@ -10,7 +10,7 @@
 #include "GameManager.h"
 
 /*creates and returns a pointer to a new game with the specified values*/
-Game* createGame(int m, int n, int k)
+Game* createGame(int m, int n, int k, int inMode)
 {
     int i; /*index used for the iterative memory allocation of 2D array of the board*/
     Game* newGame;
@@ -20,6 +20,8 @@ Game* createGame(int m, int n, int k)
     newGame->cols = m;
     newGame->rows = n;
     newGame->win = k;
+    newGame->turn = 1;
+    newGame->mode = inMode
     newGame->total = 0;
      
     /*allocating the memory for the 2D array representing the board*/
@@ -49,7 +51,7 @@ void freeGame(Game* game)
     
 
 /*runs the game of TicTacToe until completion*/
-void runGame(Game* game, LinkedList* log)
+void runGame(Game* game)
 {
     int finished = FALSE; /*boolean value for whether the game has finished*/
     
@@ -58,51 +60,43 @@ void runGame(Game* game, LinkedList* log)
     int inCol, inRow;
     
     int placeError; /*boolean value, stores return (error) value of placeToken function*/
-    char player = 'X'; /*whose turn it is, always start with Player 1 (X)*/
 
     displayGame(game);
     
     while (finished == FALSE) /*while the game hasn't finished*/
     {
-        do
-        { 
-            if (player == 'X')
-            {
-                printf("Player 1's (X) turn\n");
-            }
-            else
-            {
-                printf("Player 2's (O) turn\n");
-            }
-         
-            /*get the user input for their proposed move*/   
-            inChar = inputChar('A','A' + game->cols - 1, "Enter the column (letter) for your move\n");
-            inCol = inChar - 65; /* turn uppercase letter into column index*/
-            inRow = inputInt(1, game->rows, "Enter the row (number) for your move\n") - 1;
-            
-            /*places a token, will return TRUE (1) if space already occupied*/
-            placeError = placeToken(game, inCol, inRow, player);
-        
-            if (placeError == TRUE)
-            {
-                printf("\nOOPS! The cell is already occupied, please select another cell\n");
-            }
-        } while (placeError == TRUE); /*repeats until valid move entered*/
+		if ((game->turn == 2) && (game->mode == 1)) {
+			makeBestMove(game); //AI makes best move and transfers turn back to P1
+		} else {
+        	do {
+  	        	if (game->turn == 1) {
+	                printf("Player 1's (X) turn\n");
+	            } else if (game->turn == 2) {
+	                printf("Player 2's (O) turn\n");
+	            }
+	         
+	            /*get the user input for their proposed move*/   
+	            inChar = inputChar('A','A' + game->cols - 1, "Enter the column (letter) for your move\n");
+	            inCol = inChar - 65; /* turn uppercase letter into column index*/
+	            inRow = inputInt(1, game->rows, "Enter the row (number) for your move\n") - 1;
+	            
+	            /*places a token, will return TRUE (1) if space already occupied*/
+	            placeError = placeToken(game, inCol, inRow);
+	        
+	            if (placeError == TRUE)
+	            {
+	                printf("\nOOPS! The cell is already occupied, please select another cell\n");
+	            }
+        	} while (placeError == TRUE); /*repeats until valid move entered*/
+        	/*alternate between X and O, whose turn it is*/
+		    if (game->turn == 1) {
+		        game->turn = 2;
+			} else {
+		        game->turn = 1;
+			}
+		}
         
         game->total++; /*there has been a successful move so increment the total moves*/
-        
-        /*add the successful move to the log*/
-        addMove(log, game->total, player, inCol, inRow);
- 
-        /*alternate between X and O, whose turn it is*/
-        if (player == 'X')
-        {
-            player = 'O';
-        }
-        else
-        {
-            player = 'X';
-        }
         
         /* returns 0 if still going, 1 if Player 1 won, 2 if player 2 won, 3 if draw*/
         finished = checkFinished(game);
@@ -112,29 +106,15 @@ void runGame(Game* game, LinkedList* log)
        
     /*the loop has been exited so the game has finished*/ 
     /*print statements for the 3 different ways that the game could have finished*/
-    if (finished == 1)
-    {
+    if (finished == 1) {
         printf("Player 1 (X) has won the game!\n");
-        addMove(log, -1, 0, 0, 0); /*indicate player 1 has won game in log*/
-    }
-    else if (finished == 2)
-    {
+ 	} else if (finished == 2) {
         printf("Player 2 (O) has won the game!\n");
-        addMove(log, -2, 0, 0, 0); /*indicate player 2 has won game in log*/
-    }
-    else if (finished == 3)
-    {
+    } else if (finished == 3) {
         printf("Game over, it's a tie!\n"); 
-        addMove(log, -3, 0, 0, 0); /*indicate game ended in draw in log*/
     }        
 
-    /*NOTE: I chose to indicate that a game was finished in the log linked list
-        by having a Move with total being negative. I chose 3 different numbers
-        so that statements of how the game finished (win P1, win P2, tie) could
-        be added including by adjusting the algorithm in Logging.c
-    */
-
-    freeGame(game); /*frees the game, all info is stored in log*/
+    freeGame(game); /*frees the game*/
 }
 
 /*displays a game to the terminal*/
@@ -145,34 +125,25 @@ void displayGame(Game* game)
     
     /*printing the top lettering*/
     printf("\n ");
-    for (i = 0; i < game->cols; i++)
-    {
+    for (i = 0; i < game->cols; i++) {
         printf("   %c", 'A' + i);
     }
     /*top equals row*/
     printf("\n ==");
-    for (i = 0; i < game->cols; i++)
-    {
+    for (i = 0; i < game->cols; i++) {
         printf("====");
     }
     printf("=\n");
    
-    for (i = 0; i < game->rows; i++)
-    {  
+    for (i = 0; i < game->rows; i++) {  
         /*print a row of entries*/ 
         printf(" ||");
-        for (j = 0; j < game->cols; j++)
-        {
-            if (game->board[i][j] == 1)
-            {
+        for (j = 0; j < game->cols; j++) {
+            if (game->board[i][j] == 1) {
                 character = 'X';
-            }
-            else if (game->board[i][j] == 2)
-            {
+            } else if (game->board[i][j] == 2) {
                 character = 'O';
-            }
-            else
-            {
+           	} else {
                 character = ' ';
             }           
             printf(" %c |", character);
@@ -180,11 +151,9 @@ void displayGame(Game* game)
         }
         printf("| %d\n", i+1); /*print extra | and the row number*/
         /*print a horizontal line of dashes through board*/
-        if (i < game->rows - 1)
-        {
+        if (i < game->rows - 1) {
             printf(" --");
-            for (k = 0; k < game->cols; k++)
-            {
+            for (k = 0; k < game->cols; k++) {
                 printf("----");
             }
             printf("-\n");
@@ -488,7 +457,7 @@ int checkDiag2(Game* game, int rowIdx, int colIdx, int val)
             exit = TRUE;
         }
         if (count == winCondition)
-        {
+	{
             finished = TRUE;
         }
         i++;
@@ -503,24 +472,13 @@ int checkDiag2(Game* game, int rowIdx, int colIdx, int val)
  * - places a 1 if Player 1 (X's) turn
  * - places a 2 if Player 2 (O's) turn
  * - returns TRUE (1) or FALSE (0) whether the cell is already occupied */
-int placeToken(Game* game, int colIdx, int rowIdx, char player)
+int placeToken(Game* game, int colIdx, int rowIdx)
 {
-    int set;
     int error = TRUE;
-
-    /*if it's Player 1 (X's) (turn = 0) turn then we will set the cell to 1*/
-    if (player == 'X')
-    {
-        set = 1;
-    }
-    else
-    {
-        set = 2;
-    }
     
     if (game->board[rowIdx][colIdx] == 0)
     {
-        game->board[rowIdx][colIdx] = set;
+        game->board[rowIdx][colIdx] = game->turn;
         error = FALSE;
     }    
     return error;

@@ -1,4 +1,4 @@
-/* File: GameManager.h
+/*File: GameManager.h
  * Author: Liam Ryan
  * ID: 19769811
  * Date Created: 02/10/19
@@ -14,24 +14,25 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "GameManager.h"
 #include "Input.h"
-#include "Logging.h"
-#include "UCPLinkedList.h"
+#include "AI.h"
+
 
 /*struct for a game of tic-tac-toe*/
 typedef struct {
     int cols;
     int rows;
     int win;
+    int mode;
     int total;
+    int turn;
     int** board;
 } Game;
 
 
 Game* createGame(int, int, int);
 void freeGame(Game*);
-void runGame(Game*, LinkedList*);
+void runGame(Game*);
 void displayGame(Game*);
 int checkFinished(Game*);
 int checkCell(Game*, int, int, int); 
@@ -39,6 +40,6 @@ int checkHorizontal(Game*, int, int, int);
 int checkVertical(Game*, int, int, int); 
 int checkDiag1(Game*, int, int, int); 
 int checkDiag2(Game*, int, int, int); 
-int placeToken(Game*, int, int, char);
+int placeToken(Game*, int, int);
 
 #endif

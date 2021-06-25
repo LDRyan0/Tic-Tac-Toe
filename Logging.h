@@ -25,7 +25,7 @@ typedef struct {
 
 Move* createMove(int, char, int, int);
 void freeData(void*);
-void addMove(LinkedList*, int, char, int, int);
+void addMove(LinkedList*, int, int, int, int);
 void saveLog(LinkedList*, int, int, int);
 void viewLog(LinkedList*, int, int, int);
 

@@ -1,8 +1,4 @@
-# Tic-Tac-Toe (STILL IN DEVELOPMENT)
-
-Author: Liam Ryan
-Date Created: 19/07/2019
-Last Updated: 26/06/2021
+# Tic-Tac-Toe 
 
 This directory contains all of the files for the TicTacToe program. The program can
 be run in the command line without any arguments and will default to 3x3 board. 

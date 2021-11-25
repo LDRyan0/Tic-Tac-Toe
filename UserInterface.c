@@ -10,7 +10,8 @@
 
 void menu(int m, int n, int k) /*the menu starts with the settings loaded in*/
 {
-    int menu = 1; /*holds the menu selection from the user*/
+    int menu; /*holds the menu selection from the user*/
+    menu = 1;
     char* menuString; /*the string for the menu output, depends on mode*/
     Game* curGame; /*stores the current game in play*/
 
@@ -23,10 +24,26 @@ void menu(int m, int n, int k) /*the menu starts with the settings loaded in*/
     makeMenuString(menuString);
 
     /*welcome message*/
-    printf("==================================================\n");
-    printf("||WELCOME TO THE ULTIMATE TIC-TAC-TOE EXPERIENCE||\n");
-    printf("==================================================\n");
- 
+    printf("\n");
+    printf("==============================================\n");
+    printf("WELCOME TO THE ULTIMATE TIC-TAC-TOE EXPERIENCE\n");
+
+    Game* egGame;
+    egGame = createGame(4,4,3);
+
+    srand(time(NULL));
+    int i,j;
+    for (i=0; i<4; i++) {
+        for (j=0; j<4; j++) {
+            egGame->board[i][j] = (rand() % 4) % 3; 
+        }
+    }
+
+    displayGame(egGame);
+    freeGame(egGame);
+    
+    printf("==============================================\n");
+
     while (menu != 6) /*while user hasn't selected exit*/
     {
         /*input the user's menu selection with validation*/

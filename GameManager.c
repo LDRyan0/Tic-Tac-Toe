@@ -144,13 +144,13 @@ void displayGame(Game* game)
     char character; 
     
     /*printing the top lettering*/
-    printf("\n ");
+    printf("\n\t ");
     for (i = 0; i < game->cols; i++)
     {
         printf("   %c", 'A' + i);
     }
     /*top equals row*/
-    printf("\n ==");
+    printf("\n\t ==");
     for (i = 0; i < game->cols; i++)
     {
         printf("====");
@@ -160,7 +160,7 @@ void displayGame(Game* game)
     for (i = 0; i < game->rows; i++)
     {  
         /*print a row of entries*/ 
-        printf(" ||");
+        printf("\t ||");
         for (j = 0; j < game->cols; j++)
         {
             if (game->board[i][j] == 1)
@@ -182,7 +182,7 @@ void displayGame(Game* game)
         /*print a horizontal line of dashes through board*/
         if (i < game->rows - 1)
         {
-            printf(" --");
+            printf("\t --");
             for (k = 0; k < game->cols; k++)
             {
                 printf("----");
@@ -191,7 +191,7 @@ void displayGame(Game* game)
         }
     }
     /*bottom equals row*/
-    printf(" ==");
+    printf("\t ==");
     for (i = 0; i < game->cols; i++)
     {
         printf("====");

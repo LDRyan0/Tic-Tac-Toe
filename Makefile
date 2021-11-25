@@ -5,7 +5,7 @@
 #Purpose: the makefile for the TicTacToe program
 
 CC = gcc
-CFLAGS = -ansi -pedantic -Wall -Werror -std=c89 -g
+CFLAGS = -ansi -pedantic -Wall -g
 OBJ =  TicTacToe.o UserInterface.o Settings.o GameManager.o Input.o UCPLinkedList.o Logging.o
 EXEC = TicTacToe
 

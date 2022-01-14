@@ -8,4 +8,4 @@ vs Player 2 or as Player 1 vs Computer.
 
 The program was initially created for my major assignment in COMP1000 Unix and C
 Programming at Curtin University, however I endeavored to go back and add in a
-basic minimax solver to the program and to establish my Git skills.
+basic minimax solver to the program.

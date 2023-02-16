@@ -15,7 +15,7 @@ make
 Compilation adhears to `-ansi`, `-pedantic`, `-Wall` and `-Werror` standards.
 
 ## Settings
-The program can load settings from the `settings.txt` file, or the settings can be changed through the main menu after the program has loaded. The user can change `<m>` `<n>` and `<k>` - the amount of rows, columns as well as the amount of tokens in a row to win. Dimensions
+The program can load settings from the `settings.txt` file, or the settings can be changed through the main menu after the program has loaded. The user can change `<m>` `<n>` and `<k>` - the amount of rows, columns as well as the amount of tokens in a row to win.
 
 **settings.txt**
 ```

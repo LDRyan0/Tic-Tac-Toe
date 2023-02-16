@@ -10,7 +10,6 @@ git clone https://github.com/LDRyan0/Tic-Tac-Toe.git
 cd Tic-Tac-Toe/
 make
 ./TicTacToe settings.txt
-
 ```
 
 ## Logging

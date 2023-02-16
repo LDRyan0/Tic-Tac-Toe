@@ -42,7 +42,7 @@ void saveLog(LinkedList* log, int m, int n, int k)
     Move* curMove; /*stores the data (Move struct) in curr*/
     FILE* f;
     int i = 1; /*stores which game it is, game 1, game 2 etc...*/
-    char fileOut[30];
+    char fileOut[64];
 
     /* Based on code from Techie Delight
      * https://www.techiedelight.com/print-current-date-and-time-in-c/
@@ -52,7 +52,7 @@ void saveLog(LinkedList* log, int m, int n, int k)
     time(&now); /*obtain current time*/
     local = localtime(&now); /*convert to calendar time*/
     
-    sprintf(fileOut, "MNK_%d_%d_%d_%02d-%02d_%02d-%02d.log", m, n, k, local->tm_hour, local->tm_min,
+    sprintf(fileOut, "logs/MNK_%d_%d_%d_%02d:%02d_%02d-%02d.log", m, n, k, local->tm_hour, local->tm_min,
         local->tm_mday, local->tm_mon + 1);
     /* End of code based from Techie Delight */
     

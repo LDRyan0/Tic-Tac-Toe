@@ -8,6 +8,7 @@ CC      = gcc
 CFLAGS  = -ansi -pedantic -Wall -g
 EXEC    = TicTacToe
 
+LOG_DIR = logs
 SRC_DIR = src
 OBJ_DIR = obj
 OBJ     = $(addprefix $(OBJ_DIR)/, TicTacToe.o UserInterface.o Settings.o GameManager.o \
@@ -27,15 +28,19 @@ endif
 CFLAGS += -D EDITOR
 #endif
 
+all : dirs $(EXEC)
+
+dirs : 
+	@[ -d $(LOG_DIR) ] || mkdir $(LOG_DIR)
+	@[ -d $(OBJ_DIR) ] || mkdir $(OBJ_DIR)
+
 $(EXEC) : $(OBJ)
 	$(CC) $(OBJ) -o $(EXEC)
 
-$(OBJ_DIR)/%.o : %.c | $(OBJ_DIR)
+$(OBJ_DIR)/%.o : %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-$(OBJ_DIR) :
-	mkdir $@
-
+	
 clean :
 	rm $(OBJ)
 	rm $(EXEC)

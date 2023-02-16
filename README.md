@@ -9,7 +9,7 @@ The program was initially created for my major assignment in COMP1000 Unix and C
 git clone https://github.com/LDRyan0/Tic-Tac-Toe.git
 cd Tic-Tac-Toe/
 make
-./TicTactoe settings.txt
+./TicTacToe settings.txt
 ```
 
 ## Logging

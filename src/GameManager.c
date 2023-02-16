@@ -111,8 +111,8 @@ void runGame(Game* game, LinkedList* log)
 	}        
     /*NOTE: I chose to indicate that a game was g in the log linked list
         by having a Move with total being negative. I chose 3 different numbers
-        so that statements of how the game g (win P1, win P2, tie) could
-        be added including by adjusting the algorithm in Logging.c
+        so that statements of how the game finished (win P1, win P2, tie) could
+        later be added including by adjusting the algorithm in Logging.c
     */
 
 	freeGame(game); /*frees the game, all info is stored in log*/
@@ -272,6 +272,7 @@ int placeToken(Game* game, int colIdx, int rowIdx, char player)
 	return error;
 }
 
+/* returns player token as a character */
 char playerToken(enum players player) { 
 	char tok;
 	if(player == X) {

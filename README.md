@@ -9,8 +9,22 @@ The program was initially created for my major assignment in COMP1000 Unix and C
 git clone https://github.com/LDRyan0/Tic-Tac-Toe.git
 cd Tic-Tac-Toe/
 make
-./TicTactoe settings.txt
+./TicTacToe settings.txt
 ```
+## Compilation Flags
+Compilation adhears to `-ansi`, `-pedantic`, `-Wall` and `-Werror` standards.
+
+## Settings
+The program can load settings from the `settings.txt` file, or the settings can be changed through the main menu after the program has loaded. The user can change `<m>` `<n>` and `<k>` - the amount of rows, columns as well as the amount of tokens in a row to win. Dimensions
+
+**settings.txt**
+```
+m=4
+n=4
+k=3
+```
+## Limitiations
+`m`, `n` and `k` must be 1-26
 
 ## Logging
 The program is able to generate log files to record the results of games. Log files are stamped with the number of rows, columns, win condition, time and date (e.g., `log/MNK_4_4_3_02:26_16-02.log`).

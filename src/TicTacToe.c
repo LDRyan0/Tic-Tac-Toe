@@ -15,7 +15,7 @@ int main (int argc, char* argv[])
     
     if (argc != 2)
     {
-        perror("The program must import the filename of the settings file");
+        fprintf(stderr, "The program must import the filename of the settings file\n");
     }
     else
     {

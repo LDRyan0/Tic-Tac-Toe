@@ -1,8 +1,6 @@
 /* File: GameManager.h
  * Author: Liam Ryan
- * ID: 19769811
  * Date Created: 02/10/19
- * Last Modified: 21/10/19
  * Purpose: header file for GameManager.c
  */
 
@@ -19,6 +17,9 @@
 #include "Logging.h"
 #include "UCPLinkedList.h"
 
+enum players { X, O };
+enum gameStatus { ACTIVE, WIN_X, WIN_O, DRAW };
+
 /*struct for a game of tic-tac-toe*/
 typedef struct {
     int cols;
@@ -28,17 +29,14 @@ typedef struct {
     int** board;
 } Game;
 
-
+ 
 Game* createGame(int, int, int);
 void freeGame(Game*);
 void runGame(Game*, LinkedList*);
 void displayGame(Game*);
-int checkFinished(Game*);
-int checkCell(Game*, int, int, int); 
-int checkHorizontal(Game*, int, int, int); 
-int checkVertical(Game*, int, int, int); 
-int checkDiag1(Game*, int, int, int); 
-int checkDiag2(Game*, int, int, int); 
+enum gameStatus checkFinished(Game*);
+enum gameStatus checkCell(Game*, int, int); 
+enum gameStatus checkLine(Game*, int, int, int, int);
 int placeToken(Game*, int, int, char);
-
+char playerToken(enum players);
 #endif

@@ -5,7 +5,7 @@
 #Purpose: the makefile for the TicTacToe program
 
 CC      = gcc
-CFLAGS  = -ansi -pedantic -Wall -g
+CFLAGS  = -ansi -pedantic -Wall -Werror -g
 EXEC    = TicTacToe
 
 LOG_DIR = logs

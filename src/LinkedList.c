@@ -1,6 +1,6 @@
 /*
-FILE: UCPLinkedList.c
-PROGRAM: UCPLinkedList
+FILE: LinkedList.c
+PROGRAM: LinkedList
 AUTHOR: Liam Ryan 
 ID: 19769811
 DATE CREATED: 25/09/2019
@@ -10,7 +10,7 @@ REFERENCE: This file was entirely created in Practical 7 of UCP by Liam Ryan
 
 */
 
-#include "UCPLinkedList.h"
+#include "LinkedList.h"
 
 LinkedList* createLinkedList()
 {

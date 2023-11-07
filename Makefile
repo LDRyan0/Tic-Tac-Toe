@@ -12,7 +12,7 @@ LOG_DIR = logs
 SRC_DIR = src
 OBJ_DIR = obj
 OBJ     = $(addprefix $(OBJ_DIR)/, TicTacToe.o UserInterface.o Settings.o GameManager.o \
-          Input.o UCPLinkedList.o Logging.o )
+          Input.o LinkedList.o Logging.o )
 vpath %.c $(SRC_DIR)
 vpath %.h $(SRC_DIR)
 

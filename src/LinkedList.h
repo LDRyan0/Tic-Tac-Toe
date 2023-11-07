@@ -1,17 +1,17 @@
 /*
-FILE: UCPLinkedList.h
-PROGRAM: UCPLinkedList
+FILE: LinkedList.h
+PROGRAM: LinkedList
 AUTHOR: Liam Ryan 
 ID: 19769811
 DATE CREATED: 25/09/2019
-PURPOSE: header for UCPLinkedList.c
+PURPOSE: header for LinkedList.c
 
 REFERENCE: This file was entirely created in Practical 7 of UCP by Liam Ryan
 
 */
 
-#ifndef UCPLINKEDLIST_H
-#define UCPLINKEDLIST_H
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
 
 #include <stdlib.h>
 #include <stdio.h>

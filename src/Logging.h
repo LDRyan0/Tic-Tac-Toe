@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "UCPLinkedList.h"
+#include "LinkedList.h"
 
 /*struct for a single move in a tic-tac-toe game, used for logging purposes:
  * each entry into the log is a Move struct*/
